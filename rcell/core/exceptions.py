@@ -2,7 +2,7 @@ class CoreException(Exception):
     pass
 
 
-class StateVectorAlreadyGenerated(CoreException):
+class StateVectorAlreadyGeneratedException(CoreException):
     pass
 
 
