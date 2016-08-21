@@ -5,7 +5,8 @@ class StructureContainerMixin(object):
     def add_structure(self, name, structure):
         try:
             if name in self._structures:
-                raise exceptions.StructureNameConflict('A structure with that name already exists.')
+                raise exceptions.StructureNameConflictException(
+                    'A structure with that name already exists.')
 
             self._structures[name] = structure
         except AttributeError:
@@ -14,8 +15,7 @@ class StructureContainerMixin(object):
             }
 
     def _get_structures(self):
-        "Return a set of all structure."
-
+        """Return a set of all structure."""
         try:
             return self._structures
         except AttributeError:
@@ -24,27 +24,30 @@ class StructureContainerMixin(object):
 
 
 class Structure(StructureContainerMixin):
-    '''
-    A abstract compartment. Not neccessarily spatially distinct, but distinct somehow.
-    '''
+    """
+    A abstract compartment.
+
+    Not neccessarily spatially distinct, but distinct somehow.
+    """
+
     def __init__(self):
         # Define how frequently this structure should be executed
         self.time_step = 1
 
     def add_states(self, name, state_group):
-        '''
-        Attach a state group to this structure.
-        '''
+        """Attach a state group to this structure."""
         try:
             self._state_groups[name] = state_group
         except AttributeError:
             self._state_groups = { name: state_group }
 
     def _get_states(self):
-        '''
+        """
         Get the state groups that this structure has defined.
+
         :returns: dict containg the state groups
-        '''
+        """
+
         try:
             return self._state_groups
         except AttributeError:
@@ -68,7 +71,5 @@ class Structure(StructureContainerMixin):
 
 
 class Compartment(Structure):
-    '''
-    A spatial region enclosed by some sort of membrane.
-    '''
+    """A spatial region enclosed by some sort of membrane."""
     pass
