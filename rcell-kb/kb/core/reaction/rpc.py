@@ -11,8 +11,8 @@ def list():
 
     return x
 
-@rpcmethod(name='reaction.get_participants', signature=[list])
-def get_participants(participants):
+@rpcmethod(name='reaction.get_reactions_with_participants', signature=[list])
+def get_reactions_with_participants(participants):
     
     print participants
     
